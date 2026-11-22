@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TAPORA Studio</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:16px;background:#09090f;color:#fff;font-family:Arial,sans-serif}
+header{text-align:center;margin:12px 0 22px}
+.brand{font-size:32px;font-weight:900;letter-spacing:2px}.brand span{color:#b58aff}.brand small{color:#cbaaff}
+.sub,.note{color:#aaa;font-size:12px;line-height:1.6}
+.panel{background:#171721;border:1px solid #30303c;border-radius:16px;padding:16px;margin-bottom:16px}
+h2{font-size:19px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.option{background:#222230;border:1px solid #393949;border-radius:12px;padding:17px 8px;text-align:center;cursor:pointer;font-weight:bold;font-size:14px}
+button,input,select{width:100%;padding:12px;border-radius:9px;border:1px solid #414151;background:#22222e;color:#fff;margin:6px 0;font-size:14px}
+button{background:linear-gradient(100deg,#8450df,#c09aff);border:0;font-weight:bold;cursor:pointer;padding:14px}
+button.secondary{background:#30303e}
+label{display:block;font-size:12px;color:#c9b3ee;margin-top:10px}
+input[type=color]{height:44px;padding:4px}
+input[type=range]{padding:0;accent-color:#b58aff}
+.hidden{display:none!important}
+.preview{width:100%;max-width:520px;margin:10px auto;display:block;border-radius:8px;background:#242430;touch-action:none}
+.sheetBox{border:2px dashed #b68bff;padding:20px;text-align:center;border-radius:12px;margin:12px 0;color:#d5bdff;cursor:pointer}
+.footer{text-align:center;color:#999;font-size:11px;margin:25px}
+.editorGrid{display:grid;grid-template-columns:1fr;gap:14px}
+.controlGroup{border-top:1px solid #343442;padding-top:8px;margin-top:12px}
+@media(min-width:850px){body{max-width:1100px;margin:auto}.editorGrid{grid-template-columns:360px minmax(0,1fr);align-items:start}}
+</style>
+</head>
+<body>
+<header><div class="brand"><span>TAP</span>ORA<small>.</small></div><div class="sub">UNIVERSAL CARD DESIGN STUDIO</div></header>
+
+<section id="home">
+ <div class="panel">
+  <h2>1. Choose Card Type</h2>
+  <div class="grid">
+   <div class="option" onclick="chooseType('Payment Card')">💳<br><br>Payment Card</div>
+   <div class="option" onclick="chooseType('Google Review')">⭐<br><br>Google Review</div>
+   <div class="option" onclick="chooseType('Instagram')">📸<br><br>Instagram</div>
+   <div class="option" onclick="chooseType('YouTube')">▶️<br><br>YouTube</div>
+   <div class="option" onclick="chooseType('Facebook')">f<br><br>Facebook</div>
+   <div class="option" onclick="chooseType('WhatsApp')">☏<br><br>WhatsApp</div>
+   <div class="option" onclick="chooseType('Snapchat')">👻<br><br>Snapchat</div>
+   <div class="option" onclick="chooseType('Website')">🌐<br><br>Website</div>
+   <div class="option" onclick="chooseType('Contact Card')">👤<br><br>Contact Card</div>
+   <div class="option" onclick="chooseType('Custom Design')">✨<br><br>Custom Design</div>
+  </div>
+ </div>
+ <div class="panel">
+  <h2>2. Choose Card Size</h2>
+  <div class="grid">
+   <div class="option" onclick="openEditor('ATM')">💳<br><br>ATM Card<br><small>54 × 85.6 mm · Portrait</small></div>
+   <div class="option" onclick="openEditor('Square')">▣<br><br>Square Card<br><small>12 × 12 cm</small></div>
+  </div>
+  <p class="note">First choose a card type above, then choose the size.</p>
+ </div>
+ <div class="panel"><h2>🖨️ A4 Sticker Sheet Maker</h2><p class="note">Upload finished card PNGs. Two square cards fit on one A4 portrait sheet.</p><button onclick="openSheet()">Open A4 Designer</button></div>
+</section>
+
+<section id="editor" class="hidden">
+ <div class="panel">
+  <button class="secondary" onclick="goHome()">← Back</button>
+  <h2 id="cardTitle">Card Designer</h2>
+  <div class="editorGrid">
+   <div>
+    <label>Background Photo</label><input id="bgFile" type="file" accept="image/*">
+    <label>Background Colour</label><input id="bgColor" type="color" value="#17102b">
+    <div class="controlGroup">
+     <h3>Store Name & Action Text</h3>
+     <label>Business / Store Name</label><input id="storeName" value="YOUR STORE NAME">
+     <label>Store Name Colour</label><input id="textColor" type="color" value="#ffffff">
+     <label>Font Style</label><select id="font"><option>Arial</option><option>Georgia</option><option>Verdana</option><option>Trebuchet MS</option><option>Times New Roman</option><option>Courier New</option></select>
+     <label>Store Name Size (very small to very large)</label><input id="fontSize" type="range" min="1" max="500" value="65">
+     <label>Action Text</label><input id="actionText" value="TAP TO FOLLOW ME ON INSTAGRAM">
+     <label>Action Text Colour</label><input id="actionColor" type="color" value="#d8c4ff">
+     <label>Action Text Size</label><input id="actionSize" type="range" min="1" max="300" value="48">
+    </div>
+    <div class="controlGroup">
+     <h3>Store Logo (Circular)</h3>
+     <label>Upload Store Logo</label><input id="logoFile" type="file" accept="image/*">
+     <label>Store Logo Size</label><input id="logoSize" type="range" min="1" max="1000" value="236">
+    </div>
+    <div class="controlGroup">
+     <h3>QR Code</h3>
+     <label>Upload QR Code</label><input id="qrFile" type="file" accept="image/*">
+     <label>QR Size</label><input id="qrSize" type="range" min="1" max="1100" value="230">
+    </div>
+    <div class="controlGroup">
+     <h3>Your TAPORA / Brand Logo</h3>
+     <label>Upload Your Own Logo</label><input id="brandFile" type="file" accept="image/*">
+     <label>Logo Size (tiny to oversized)</label><input id="brandSize" type="range" min="1" max="1400" value="180">
+    </div>
+    <div class="controlGroup">
+     <h3>NFC Symbol</h3>
+     <select id="nfc"><option value="yes">Show NFC</option><option value="no">Hide NFC</option></select>
+     <label>NFC Symbol Size</label><input id="nfcSize" type="range" min="1" max="400" value="100">
+    </div>
+    <p class="note">Drag any item directly on the preview to move it. Use its size slider to make it extremely small or large. Items can be moved partly outside the card too.</p>
+   </div>
+   <div>
+    <h2>Live Preview · <span id="sizeLabel">12 × 12 cm</span></h2>
+    <canvas id="cardCanvas" class="preview" width="1417" height="1417"></canvas>
+    <button onclick="downloadCard()">⬇ Download HD PNG</button>
+    <button class="secondary" onclick="resetPositions()">Reset element positions</button>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="sheet" class="hidden">
+ <div class="panel">
+  <button class="secondary" onclick="goHome()">← Back</button><h2>A4 Sticker Sheet Maker</h2>
+  <p class="note">A4 Portrait · 21 × 29.7 cm · Two 12 × 12 cm cards with margins and cutting borders.</p>
+  <div class="sheetBox" onclick="document.getElementById('sheet1').click()"><b>BOX 1</b><br><br>Tap to upload card PNG<input type="file" id="sheet1" accept="image/*" hidden></div>
+  <div class="sheetBox" onclick="document.getElementById('sheet2').click()"><b>BOX 2</b><br><br>Tap to upload card PNG<input type="file" id="sheet2" accept="image/*" hidden></div>
+  <canvas id="sheetCanvas" class="preview" width="2480" height="3508"></canvas>
+  <button onclick="downloadSheet()">⬇ Download HD A4 PNG</button>
+ </div>
+ <p class="note">Empty boxes remain blank. Refreshing the page resets the sheet.</p>
+</section>
+<div class="footer">TAPORA STUDIO · CREATE YOUR OWN IDENTITY</div>
+
+<script>
+const $=id=>document.getElementById(id);
+let currentType='Custom Design',cardShape='Square';
+let imgs={bg:null,logo:null,qr:null,brand:null},sheetImages=[null,null],drag=null;
+let pos={logo:{x:708,y:245},name:{x:708,y:540},action:{x:708,y:760},nfc:{x:350,y:1050},qr:{x:1065,y:1010},brand:{x:708,y:1300}};
+const TYPES={
+ 'Payment Card':'TAP TO PAY',
+ 'Google Review':'TAP TO LEAVE A REVIEW',
+ 'Instagram':'TAP TO FOLLOW ME ON INSTAGRAM',
+ 'YouTube':'TAP TO SUBSCRIBE',
+ 'Facebook':'TAP TO FOLLOW ME ON FACEBOOK',
+ 'WhatsApp':'TAP TO MESSAGE ME ON WHATSAPP',
+ 'Snapchat':'TAP TO ADD ME ON SNAPCHAT',
+ 'Website':'TAP TO VISIT MY WEBSITE',
+ 'Contact Card':'TAP TO SAVE MY CONTACT',
+ 'Custom Design':'TAP TO CONNECT'
+};
+function chooseType(t){currentType=t;$('actionText').value=TYPES[t]||'TAP TO CONNECT';document.querySelectorAll('.option').forEach(()=>{});document.querySelectorAll('#home .grid .option').forEach(el=>el.style.borderColor='');event.currentTarget.style.borderColor='#b58aff'}
+function openEditor(shape){
+ if(!currentType)currentType='Custom Design';
+ cardShape=shape;
+ $('home').classList.add('hidden');$('sheet').classList.add('hidden');$('editor').classList.remove('hidden');
+ const w=shape==='ATM'?893:1417,h=1417;
+ $('cardCanvas').width=w;$('cardCanvas').height=h;
+ $('cardTitle').textContent=currentType+' · '+(shape==='ATM'?'ATM Portrait':'12 × 12 cm')+' Designer';
+ $('sizeLabel').textContent=shape==='ATM'?'54 × 85.6 mm':'12 × 12 cm';
+ setDefaultPositions();renderCard();scrollTo(0,0);
+}
+function setDefaultPositions(){
+ const w=$('cardCanvas').width,h=$('cardCanvas').height;
+ pos={logo:{x:w/2,y:h*.19},name:{x:w/2,y:h*.39},action:{x:w/2,y:h*.56},nfc:{x:w*.27,y:h*.76},qr:{x:w*.75,y:h*.75},brand:{x:w/2,y:h*.93}};
+}
+function openSheet(){$('home').classList.add('hidden');$('editor').classList.add('hidden');$('sheet').classList.remove('hidden');renderSheet();scrollTo(0,0)}
+function goHome(){$('home').classList.remove('hidden');$('editor').classList.add('hidden');$('sheet').classList.add('hidden')}
+function readImage(file,cb){if(!file)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>cb(im);im.onerror=()=>alert('Could not open this image.');im.src=r.result};r.readAsDataURL(file)}
+['bg','logo','qr','brand'].forEach(k=>$(k+'File').addEventListener('change',e=>readImage(e.target.files[0],im=>{imgs[k]=im;renderCard()})));
+['bgColor','storeName','textColor','font','fontSize','actionText','actionColor','actionSize','logoSize','qrSize','brandSize','nfc','nfcSize'].forEach(k=>$(k).addEventListener('input',renderCard));
+function cover(ctx,img,x,y,w,h){const s=Math.max(w/img.width,h/img.height),sw=w/s,sh=h/s;ctx.drawImage(img,(img.width-sw)/2,(img.height-sh)/2,sw,sh,x,y,w,h)}
+function drawImageAt(ctx,img,cx,cy,w,h,circle=false){
+ if(!img)return;
+ ctx.save();
+ if(circle){ctx.beginPath();ctx.arc(cx,cy,Math.max(w,h)/2,0,Math.PI*2);ctx.clip();cover(ctx,img,cx-w/2,cy-h/2,w,h)}
+ else ctx.drawImage(img,cx-w/2,cy-h/2,w,h);
+ ctx.restore();
+}
+function drawText(ctx,text,p,size,color,font,weight='bold'){
+ ctx.save();ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=color;ctx.font=weight+' '+size+'px "'+font+'"';ctx.fillText(text,p.x,p.y);ctx.restore();
+}
+function renderCard(){
+ const c=$('cardCanvas'),x=c.getContext('2d'),w=c.width,h=c.height;
+ x.clearRect(0,0,w,h);x.fillStyle=$('bgColor').value;x.fillRect(0,0,w,h);
+ if(imgs.bg)cover(x,imgs.bg,0,0,w,h);
+ x.fillStyle='rgba(10,5,25,.28)';x.fillRect(0,0,w,h);
+ x.strokeStyle='rgba(195,158,255,.8)';x.lineWidth=Math.max(2,w*.005);x.strokeRect(15,15,w-30,h-30);
+ const ls=Number($('logoSize').value);
+ if(imgs.logo){drawImageAt(x,imgs.logo,pos.logo.x,pos.logo.y,ls,ls,true);x.save();x.beginPath();x.arc(pos.logo.x,pos.logo.y,ls/2+4,0,Math.PI*2);x.strokeStyle='#c09aff';x.lineWidth=5;x.stroke();x.restore()}
+ drawText(x,$('storeName').value||'YOUR STORE NAME',pos.name,Number($('fontSize').value),$('textColor').value,$('font').value);
+ drawText(x,$('actionText').value||'TAP TO CONNECT',pos.action,Number($('actionSize').value),$('actionColor').value,'Arial');
+ if($('nfc').value==='yes'){const ns=Number($('nfcSize').value);drawText(x,')))',pos.nfc,ns,'#c09aff','Arial');drawText(x,'NFC', {x:pos.nfc.x,y:pos.nfc.y+ns*.55},Math.max(1,ns*.22),'#e5d5ff','Arial')}
+ const qs=Number($('qrSize').value);
+ x.fillStyle='#fff';x.fillRect(pos.qr.x-qs/2-8,pos.qr.y-qs/2-8,qs+16,qs+16);
+ if(imgs.qr)drawImageAt(x,imgs.qr,pos.qr.x,pos.qr.y,qs,qs,false);
+ else{ x.strokeStyle='#333';x.lineWidth=4;x.strokeRect(pos.qr.x-qs*.35,pos.qr.y-qs*.35,qs*.7,qs*.7);drawText(x,'ADD QR',pos.qr,Math.max(10,Math.min(38,qs*.16)),'#222','Arial')}
+ if(imgs.brand){const bs=Number($('brandSize').value);const ratio=imgs.brand.width/imgs.brand.height;drawImageAt(x,imgs.brand,pos.brand.x,pos.brand.y,ratio>=1?bs:bs*ratio,ratio>=1?bs/ratio:bs,false)}
+}
+function point(e){const r=$('cardCanvas').getBoundingClientRect(),c=$('cardCanvas');return{x:(e.clientX-r.left)*c.width/r.width,y:(e.clientY-r.top)*c.height/r.height}}
+function hit(p,key,radius){return Math.hypot(p.x-pos[key].x,p.y-pos[key].y)<radius}
+$('cardCanvas').addEventListener('pointerdown',e=>{
+ const p=point(e),w=$('cardCanvas').width;
+ let t=null;
+ if(imgs.brand&&hit(p,'brand',Math.max(30,Number($('brandSize').value)/2+15)))t='brand';
+ else if(imgs.logo&&hit(p,'logo',Math.max(25,Number($('logoSize').value)/2+15)))t='logo';
+ else if(imgs.qr&&hit(p,'qr',Math.max(25,Number($('qrSize').value)/2+15)))t='qr';
+ else if(hit(p,'name',Math.max(40,Number($('fontSize').value))))t='name';
+ else if(hit(p,'action',Math.max(40,Number($('actionSize').value))))t='action';
+ else if($('nfc').value==='yes'&&hit(p,'nfc',Math.max(40,Number($('nfcSize').value))))t='nfc';
+ if(t){drag={t,dx:p.x-pos[t].x,dy:p.y-pos[t].y};$('cardCanvas').setPointerCapture(e.pointerId);e.preventDefault()}
+});
+$('cardCanvas').addEventListener('pointermove',e=>{if(!drag)return;const p=point(e);pos[drag.t].x=p.x-drag.dx;pos[drag.t].y=p.y-drag.dy;renderCard()});
+['pointerup','pointercancel'].forEach(ev=>$('cardCanvas').addEventListener(ev,()=>drag=null));
+function resetPositions(){setDefaultPositions();renderCard()}
+function savePNG(canvas,name){canvas.toBlob(blob=>{if(!blob){alert('PNG export failed. Please try again.');return}const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000)},'image/png')}
+function downloadCard(){renderCard();savePNG($('cardCanvas'),'TAPORA-'+currentType.replace(/\s+/g,'-')+'-'+cardShape+'.png')}
+function uploadSheet(i,input){readImage(input.files[0],im=>{sheetImages[i]=im;renderSheet()})}
+['sheet1','sheet2'].forEach((id,i)=>$(id).addEventListener('change',e=>uploadSheet(i,e.target)));
+function renderSheet(){const c=$('sheetCanvas'),x=c.getContext('2d'),w=c.width,h=c.height;x.fillStyle='#fff';x.fillRect(0,0,w,h);const size=1417,left=(w-size)/2,ys=[120,1700];for(let i=0;i<2;i++){if(sheetImages[i])cover(x,sheetImages[i],left,ys[i],size,size);x.strokeStyle='#777';x.lineWidth=5;x.setLineDash([15,10]);x.strokeRect(left,ys[i],size,size);x.setLineDash([])}}
+function downloadSheet(){renderSheet();savePNG($('sheetCanvas'),'TAPORA-A4-Sticker-Sheet.png')}
+renderSheet();
+</script>
+</body></html>
