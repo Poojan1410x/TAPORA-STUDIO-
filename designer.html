@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TAPORA Studio</title>
+<style>
+:root{--bg:#090910;--panel:#141420;--muted:#a5a5b8;--line:#29293b;--purple:#9a67ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#fff;font:15px Arial,sans-serif}header{padding:22px 16px;text-align:center;border-bottom:1px solid var(--line)}.brand{font-size:30px;font-weight:900;letter-spacing:1px}.brand b{color:#a879ff}.brand span{color:#fff}.brand i{color:#b58cff;font-style:normal}header p{color:var(--muted);margin:7px 0 0}.wrap{max-width:1150px;margin:auto;padding:18px}.section-title{font-size:19px;margin:8px 0 14px}.categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}.cat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;color:white;text-align:left;cursor:pointer}.cat.active{border-color:var(--purple);box-shadow:0 0 0 1px var(--purple)}.cat strong{display:block;margin-bottom:5px}.cat small{color:var(--muted)}.layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;margin-top:20px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:15px}.designs{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px}.design{background:#20202d;border:1px solid var(--line);padding:9px;border-radius:13px;cursor:pointer;color:#fff;text-align:left}.design.active{border-color:#b58cff}.thumb{height:125px;border-radius:10px;display:flex;flex-direction:column;justify-content:space-between;padding:12px;overflow:hidden;color:white;position:relative}.thumb .mini{font-size:12px;opacity:.9}.thumb strong{font-size:18px}.thumb .qr{position:absolute;right:10px;bottom:10px;background:white;color:#111;padding:8px;font-size:24px;border-radius:4px}.design small{display:block;color:var(--muted);margin-top:8px}.editor{display:flex;flex-direction:column;gap:11px}.field label{display:block;color:#c7c7d4;font-size:12px;margin-bottom:6px}.field input,.field select{width:100%;background:#0c0c14;border:1px solid var(--line);color:white;padding:10px;border-radius:9px}.field input[type=color]{height:42px;padding:4px}.field input[type=file]{font-size:12px}.two{display:grid;grid-template-columns:1fr 1fr;gap:9px}.stage{display:flex;justify-content:center;align-items:center;min-height:480px;background:#0c0c14;border-radius:13px;padding:20px;overflow:hidden}.card{width:min(100%,390px);aspect-ratio:1/1;border-radius:28px;position:relative;overflow:hidden;box-shadow:0 18px 55px #0009;background:linear-gradient(135deg,#7d42ff,#e34baf);touch-action:none}.card.portrait{width:min(100%,300px);aspect-ratio:54/85.6}.obj{position:absolute;touch-action:none;user-select:none;cursor:move}.headline{left:8%;top:10%;width:84%;font-size:clamp(17px,4vw,30px);font-weight:900;text-align:center;text-shadow:0 2px 5px #0005;white-space:pre-wrap}.subline{left:8%;top:26%;width:84%;font-size:14px;text-align:center}.nfc{left:8%;top:43%;font-size:43px}.qrbox{right:8%;bottom:10%;width:29%;aspect-ratio:1;background:white;border:7px solid white;border-radius:7px;display:grid;place-items:center;color:#111;font-size:42px}.logo{left:8%;bottom:10%;width:24%;aspect-ratio:1;border-radius:50%;background:#fff;display:grid;place-items:center;overflow:hidden;color:#222;font-weight:bold}.logo img,.qrbox img{width:100%;height:100%;object-fit:cover}.tapline{left:8%;bottom:4%;width:84%;text-align:center;font-size:11px;letter-spacing:.3px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.btn{border:0;border-radius:10px;padding:12px 15px;font-weight:700;cursor:pointer;background:#a879ff;color:#100b1b}.btn.secondary{background:#29293b;color:white}.hint{font-size:12px;color:var(--muted);line-height:1.5}.hidden{display:none!important}@media(max-width:850px){.layout{grid-template-columns:1fr}.stage{min-height:390px}.wrap{padding:12px}} 
+</style>
+</head>
+<body>
+<header><div class="brand"><b>TAP</b><span>ORA</span><i>.</i></div><p>Digital Cards & Smart Solutions — Studio</p></header>
+<main class="wrap">
+  <div class="section-title">1. Choose product category</div>
+  <div class="categories" id="categories"></div>
+  <div class="layout">
+    <section class="panel">
+      <div class="section-title" id="designHeading">2. Choose a design</div>
+      <div class="designs" id="designs"></div>
+      <div class="section-title" style="margin-top:22px">3. Live preview</div>
+      <div class="stage"><div id="card" class="card">
+        <div id="headline" class="obj headline">SCAN & CONNECT</div>
+        <div id="subline" class="obj subline">Follow us on Instagram</div>
+        <div id="nfc" class="obj nfc">⌁ NFC</div>
+        <div id="logo" class="obj logo">LOGO</div>
+        <div id="qrbox" class="obj qrbox">▦</div>
+        <div id="tapline" class="obj tapline">TAP YOUR PHONE OR SCAN THE QR CODE</div>
+      </div></div>
+      <div class="actions"><button class="btn" id="download">Download PNG</button><button class="btn secondary" id="reset">Reset design</button></div>
+      <p class="hint">Drag any item directly on the card to move it. Use the controls on the right to resize. QR is a placeholder until you upload your real QR image.</p>
+    </section>
+    <aside class="panel">
+      <div class="section-title">4. Customize your card</div>
+      <div class="editor">
+        <div class="field"><label>Card format</label><select id="format"><option value="square">Square 12 × 12 cm</option><option value="portrait">Portrait 54 × 85.6 mm</option><option value="wide">Landscape 85.6 × 54 mm</option></select></div>
+        <div class="field"><label>Background colour</label><input type="color" id="bg" value="#7d42ff"></div>
+        <div class="field"><label>Background image</label><input type="file" id="background" accept="image/*"></div>
+        <div class="field"><label>Main heading</label><input id="headingText" value="SCAN & CONNECT"></div>
+        <div class="field"><label>Action text</label><input id="actionText" value="Follow us on Instagram"></div>
+        <div class="two">
+          <div class="field"><label>Text colour</label><input type="color" id="textColor" value="#ffffff"></div>
+          <div class="field"><label>Accent colour</label><input type="color" id="accent" value="#ffffff"></div>
+        </div>
+        <div class="field"><label>Upload business logo (circular)</label><input type="file" id="logoFile" accept="image/*"></div>
+        <div class="field"><label>Upload QR code</label><input type="file" id="qrFile" accept="image/*"></div>
+        <div class="field"><label>Upload TAPORA / brand logo</label><input type="file" id="brandFile" accept="image/*"></div>
+        <div class="two">
+          <div class="field"><label>Heading size</label><input type="range" id="headingSize" min="12" max="64" value="30"></div>
+          <div class="field"><label>Action size</label><input type="range" id="actionSize" min="8" max="36" value="14"></div>
+        </div>
+        <div class="two">
+          <div class="field"><label>QR size</label><input type="range" id="qrSize" min="8" max="55" value="29"></div>
+          <div class="field"><label>Logo size</label><input type="range" id="logoSize" min="8" max="45" value="24"></div>
+        </div>
+        <div class="two">
+          <div class="field"><label>NFC size</label><input type="range" id="nfcSize" min="16" max="80" value="43"></div>
+          <div class="field"><label>Footer size</label><input type="range" id="footerSize" min="7" max="22" value="11"></div>
+        </div>
+        <div class="field"><label>Footer text</label><input id="footerText" value="TAP YOUR PHONE OR SCAN THE QR CODE"></div>
+        <div class="field"><label>Brand logo image is placed as a movable item</label><input type="checkbox" id="showBrand" checked></div>
+      </div>
+    </aside>
+  </div>
+</main>
+<script>
+const categories=[
+{name:"NFC & QR Plaques",desc:"Single-network social cards",designs:[
+["Google Reviews","#4285f4","Leave us a review on Google"],["Instagram","#d62976","Follow us on Instagram"],["Facebook","#1877f2","Follow us on Facebook"],["TikTok","#111111","Follow us on TikTok"],["Snapchat","#ffdf00","Add us on Snapchat"],["WhatsApp","#16a34a","Message us on WhatsApp"],["YouTube","#e62117","Subscribe on YouTube"],["Tripadvisor","#34a853","Find us on Tripadvisor"],["LinkedIn","#0a66c2","Connect on LinkedIn"],["Yelp","#d32323","Review us on Yelp"]]},
+{name:"Duo 2 Networks",desc:"Two destinations on one card",designs:[
+["Google + Instagram","#5137c9","Review us • Follow us"],["Google + Facebook","#245bb8","Review us • Follow us"],["Google + Tripadvisor","#278b62","Review us • Discover us"],["Google + Yelp","#bd2626","Review us • Find us"],["Instagram + TikTok","#8b3acb","Follow us on both"],["Google + WhatsApp","#198c66","Review us • Message us"]]},
+{name:"Plaques with Stand",desc:"Countertop display with logo",designs:[
+["Google Stand","#3675df","Scan to leave a Google review"],["Instagram Stand","#c13584","Tap to follow our Instagram"],["WhatsApp Stand","#168d55","Tap to message us"],["Custom Logo Stand","#7546cf","Discover our business"]]},
+{name:"NFC Stickers",desc:"Compact adhesive sticker layouts",designs:[
+["Google Review Sticker","#4285f4","Leave a review"],["Instagram Sticker","#d62976","Follow us"],["TikTok Sticker","#111111","Follow us on TikTok"],["Snapchat Sticker","#ffdf00","Add us"],["WhatsApp Sticker","#16a34a","Message us"],["Tripadvisor Sticker","#278b62","Find us"]]},
+{name:"NFC Business Cards",desc:"Personal and business contact cards",designs:[
+["Google Review Card","#3975d8","Review our business"],["Instagram Contact Card","#b83e9a","Follow my profile"],["Digital Contact Card","#252538","Tap to save my contact"],["WhatsApp Contact Card","#168c55","Tap to message me"]]},
+{name:"Restaurant & Table",desc:"Menus, table and hospitality",designs:[
+["Digital Menu","#db7432","Scan to view our menu"],["Restaurant Review","#367b49","Leave us a review"],["Table QR x10","#8b5b39","Scan for menu & service"],["Wi-Fi Access","#3478a8","Connect to our Wi-Fi"]]},
+{name:"Custom Signage",desc:"Business information and custom signs",designs:[
+["Opening Hours","#343449","View our opening hours"],["Website","#4141a5","Visit our website"],["Contact Us","#168a82","Get in touch with us"],["Custom Brand Sign","#7546cf","Welcome — tap to connect"]]}
+];
+let selectedCat=0,selectedDesign=0,bgImage=null,logoImage=null,qrImage=null,brandImage=null;
+const $=id=>document.getElementById(id);
+function renderCategories(){ $("categories").innerHTML=categories.map((c,i)=>`<button class="cat ${i===selectedCat?'active':''}" data-i="${i}"><strong>${c.name}</strong><small>${c.desc}</small></button>`).join("");document.querySelectorAll(".cat").forEach(b=>b.onclick=()=>{selectedCat=+b.dataset.i;selectedDesign=0;renderAll()})}
+function renderDesigns(){const c=categories[selectedCat];$("designHeading").textContent="2. Choose a design — "+c.name;$("designs").innerHTML=c.designs.map((d,i)=>`<button class="design ${i===selectedDesign?'active':''}" data-i="${i}"><div class="thumb" style="background:linear-gradient(140deg,${d[1]},#171725)"><span class="mini">⌁ NFC TAP</span><strong>${d[0]}</strong><span class="mini">${d[2]}</span><span class="qr">▦</span></div><small>${d[0]}</small></button>`).join("");document.querySelectorAll(".design").forEach(b=>b.onclick=()=>{selectedDesign=+b.dataset.i;applyDesign();renderDesigns()})}
+function applyDesign(){let d=categories[selectedCat].designs[selectedDesign];$("bg").value=d[1];$("bg").dispatchEvent(new Event("input"));$("headingText").value=d[0].toUpperCase();$("actionText").value=d[2];syncText()}
+function renderAll(){renderCategories();renderDesigns();applyDesign()}
+function syncText(){$("headline").textContent=$("headingText").value;$("subline").textContent=$("actionText").value;$("tapline").textContent=$("footerText").value;$("headline").style.color=$("textColor").value;$("subline").style.color=$("textColor").value;$("tapline").style.color=$("textColor").value;$("headline").style.fontSize=$("headingSize").value+"px";$("subline").style.fontSize=$("actionSize").value+"px";$("tapline").style.fontSize=$("footerSize").value+"px";$("qrbox").style.width=$("qrSize").value+"%";$("logo").style.width=$("logoSize").value+"%";$("nfc").style.fontSize=$("nfcSize").value+"px";$("nfc").style.color=$("accent").value}
+["headingText","actionText","footerText","textColor","headingSize","actionSize","qrSize","logoSize","nfcSize","footerSize","accent"].forEach(id=>$(id).addEventListener("input",syncText));
+$("bg").addEventListener("input",()=>{$("card").style.background=bgImage?`url(${bgImage}) center/cover`:$("bg").value});
+$("format").onchange=()=>{$("card").className="card "+($("format").value==="portrait"?"portrait":"");if($("format").value==="wide"){$("card").style.aspectRatio="85.6/54";$("card").style.width="min(100%,520px)"}else{$("card").style.aspectRatio=$("format").value==="square"?"1/1":"54/85.6";$("card").style.width=$("format").value==="square"?"min(100%,390px)":"min(100%,300px)"}};
+function loadFile(input,cb){input.onchange=e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>cb(r.result)}}
+loadFile($("background"),v=>{bgImage=v;$("card").style.background=`url(${v}) center/cover`});
+loadFile($("logoFile"),v=>{logoImage=v;$("logo").innerHTML=`<img src="${v}">`});
+loadFile($("qrFile"),v=>{qrImage=v;$("qrbox").innerHTML=`<img src="${v}">`});
+loadFile($("brandFile"),v=>{brandImage=v;let el=document.getElementById("brandMark");if(!el){el=document.createElement("img");el.id="brandMark";el.className="obj";el.style.cssText="width:24%;height:auto;left:38%;top:65%;object-fit:contain";$("card").appendChild(el);makeDraggable(el)}el.src=v;el.style.display=$("showBrand").checked?"block":"none"});
+$("showBrand").onchange=()=>{let e=$("brandMark");if(e)e.style.display=$("showBrand").checked?"block":"none"};
+function makeDraggable(el){let sx,sy,ox,oy;el.addEventListener("pointerdown",e=>{if(e.target.tagName==="IMG"&&el.id==="qrbox"){}e.preventDefault();el.setPointerCapture(e.pointerId);let r=$("card").getBoundingClientRect(),b=el.getBoundingClientRect();sx=e.clientX;sy=e.clientY;ox=b.left-r.left;oy=b.top-r.top;el.dataset.drag="1"});el.addEventListener("pointermove",e=>{if(el.dataset.drag!=="1")return;let r=$("card").getBoundingClientRect();el.style.left=((ox+e.clientX-sx)/r.width*100)+"%";el.style.top=((oy+e.clientY-sy)/r.height*100)+"%";el.style.right="auto";el.style.bottom="auto"});el.addEventListener("pointerup",()=>el.dataset.drag="0")}
+["headline","subline","nfc","logo","qrbox","tapline"].forEach(id=>makeDraggable($(id)));
+$("reset").onclick=()=>{bgImage=logoImage=qrImage=brandImage=null;$("card").style.background=$("bg").value;["logo","qrbox"].forEach((id)=>$(id).innerHTML=id==="logo"?"LOGO":"▦");let b=$("brandMark");if(b)b.remove();$("format").value="square";$("format").dispatchEvent(new Event("change"));renderAll()};
+$("download").onclick=async()=>{let node=$("card"),scale=3,w=node.offsetWidth*scale,h=node.offsetHeight*scale,canvas=document.createElement("canvas");canvas.width=w;canvas.height=h;let ctx=canvas.getContext("2d");let style=getComputedStyle(node);ctx.fillStyle=style.backgroundColor;ctx.fillRect(0,0,w,h);if(bgImage){let im=await img(bgImage);cover(ctx,im,w,h)}else{let grad=ctx.createLinearGradient(0,0,w,h);grad.addColorStop(0,$("bg").value);grad.addColorStop(1,"#191928");ctx.fillStyle=grad;ctx.fillRect(0,0,w,h)}let els=[...node.querySelectorAll(".obj")];for(let el of els){if(el.id==="brandMark"&&el.style.display==="none")continue;let r=el.getBoundingClientRect(),base=node.getBoundingClientRect(),x=(r.left-base.left)*scale,y=(r.top-base.top)*scale,ww=r.width*scale,hh=r.height*scale,cs=getComputedStyle(el);if(el.tagName==="IMG"||el.querySelector("img")){let im=await img(el.tagName==="IMG"?el.src:el.querySelector("img").src);ctx.save();if(el.id==="logo"){ctx.beginPath();ctx.arc(x+ww/2,y+hh/2,Math.min(ww,hh)/2,0,Math.PI*2);ctx.clip()}ctx.drawImage(im,x,y,ww,hh);ctx.restore()}else{ctx.fillStyle=cs.color;ctx.font=`${cs.fontWeight} ${parseFloat(cs.fontSize)*scale}px Arial`;ctx.textAlign=el.classList.contains("headline")||el.classList.contains("subline")||el.classList.contains("tapline")?"center":"left";let text=el.textContent.trim();if(el.id==="qrbox"){ctx.fillStyle="#fff";ctx.fillRect(x,y,ww,hh);ctx.fillStyle="#111";ctx.font=`bold ${Math.min(ww,hh)*.65}px Arial`;ctx.textAlign="center";ctx.fillText("▦",x+ww/2,y+hh*.72)}else{let lines=text.split("\n");lines.forEach((line,i)=>ctx.fillText(line,ctx.textAlign==="center"?x+ww/2:x,y+(i+1)*parseFloat(cs.fontSize)*scale*1.15))}}}canvas.toBlob(blob=>{let a=document.createElement("a"),u=URL.createObjectURL(blob);a.href=u;a.download="TAPORA-card.png";a.click();URL.revokeObjectURL(u)})};
+function img(src){return new Promise((res,rej)=>{let i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=src})}function cover(ctx,im,w,h){let s=Math.max(w/im.width,h/im.height),iw=im.width*s,ih=im.height*s;ctx.drawImage(im,(w-iw)/2,(h-ih)/2,iw,ih)}
+renderAll();syncText();
+</script>
+</body></html>
